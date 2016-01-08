@@ -1,0 +1,25 @@
+#!/opt/local/bin/gnuplot -persist
+#
+# Plot raw data along w median and quartiles (generated through moments-per-line.awk)
+#
+# Specify the values for raw_input, moments_input, nr_observations
+# datafile with raw inputs
+#raw_input='squared-noise.txt'
+
+# datafile with moments
+#moments_input='squared-noise.moments'
+
+# number of observations (= nr of columns in raw data file)
+#nr_observations=12
+
+#skip = 100
+
+load 'analytics.pal'
+load 'grid.gpl'
+load 'moments.gnuplot' # macros for plotting the output of the 'moments-per-line.awk' script
+load 'xyborder.gpl'
+
+set style line 97 lt rgb "#80808080" lw 0.2  # translucent gray for raw data
+
+plot for [i=2:nr_observations] raw_input every skip u 1:i w points ps 0.5 lt 97 noti,\
+moments_input @moments_median w li ls 1 notitle, '' @moments_IQR ls 1  notitle

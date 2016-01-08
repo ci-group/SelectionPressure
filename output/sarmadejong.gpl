@@ -1,0 +1,18 @@
+# Assume 'set output' and "input=" done before call to this file
+
+set terminal pngcairo enhanced font "Helvetica,11" size 768, 512
+
+# left hand y axis (offspring)
+set ytics tc ls 1
+set yrange [0:10]
+set ylabel "offspring"
+
+# right hand y axis (fitness)
+set y2tics nomirror tc ls 2
+set y2range [0:1000]
+set y2label "fitness"
+
+# x axis
+set xlabel "rank"
+
+plot input u 3 w impulse noti , '' u 4 axes x1y2 w lines noti

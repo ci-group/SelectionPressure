@@ -1,0 +1,24 @@
+create .Rprofile to load Kendall package by defaults with :
+library(Kendall)
+Save this file in you home directory (Users/Jacqueline/)
+
+
+be in file with results and do:
+bash ../selection_pressure.sh <files> --method both --output <output_path> — optimisation <min/max>
+
+Made changes in awk file:
+1. Changed the counting so that the table equals the schema in the paper, including correct numbers (A/B/C/D)
+2. Included a boolean for whether it is a min of max problem to multiply with threshold and fitness value
+3. Being more strict for the median values. The values equal to median are now included in the B category
+
+Made changes in selection_pressure.sh file:
+1. included an extra flag for min/max problem. Now a better individual always has a higher fitness and the table from the paper is always relevant
+2. changed tau into tau-b because of the many ties
+3. changed fisher into one tail with alternative  = “greater”. This means that you sum the probabilities of this division and the divisions with more selection pressure indication (A higher means C and B lower and D higher). If this total sum is very low, you can say with bigger certainty that is is not uniform distributed. If we would have a negative selection pressure, A would be very low to begin with and using the “greater” value for one tail still holds because you still want to test in the same direction
+
+Output file name:
+	<problem>.<selection scheme>.<tournament size>.<run ID>
+
+With:
+	selection scheme (0,1,2) for (tournament, boltzmann, roulettewheel)
+	problem (0,1,2,3) for (Himmelblau, Schwefel, Fonseca and Fleming, Schaffer's study)

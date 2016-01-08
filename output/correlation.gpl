@@ -1,0 +1,18 @@
+#!/opt/local/bin/gnuplot
+#
+# $Id: fisher.gpl $
+# Plot FET file with results of Fisher's exact test for selective pressure
+#
+
+set key bottom box ls 81
+
+set xtics 10000
+set xlabel "generation"
+
+#set logscale y
+set yrange [-1:1]
+set ylabel "selection pressure"
+
+set key off
+
+plot input u 1:(-$2) w li lw 2 notitle
